@@ -1,83 +1,80 @@
 from scapy.all import *
-import collections
+import sys
 
 pkts = rdpcap("../pkt/test3.cap")
+target_ssid = str(sys.argv[1]) #"xfinitywifi"
+unique_bssid = set()
+target_channel = set()
+eap_device = set()
+crypto_scheme = []
 
-unique_ap = {}
-f = open('ssid', 'w')
-hidden_ssid = set()
-eapol = set()
-
-def GetSSID(pkts):
+def GetPackets(pkts):
 	index = 0
 	for pkt in pkts:
-		#layers before Dot11Elt
-		try:
-			mac = pkt.addr2  # MAC[Dot11] 
-			bssid = pkt[Dot11].addr3
-			capability = pkt.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}"
-					"{Dot11ProbeResp:%Dot11ProbeResp.cap%}")
-			crypto = set()
-			ssid, channel = None, None
-			if pkt.haslayer(EAPOL) and bssid not in eapol:
-				eapol.add(bssid)
-		except AttributeError:
-			pass
+		if pkt.haslayer(EAPOL) or pkt.haslayer(EAP):
+			eap_device.add(pkt[Dot11].addr3)
 		if pkt.haslayer(Dot11Elt):
 			layer = pkt[Dot11Elt]
-			if layer.ID == 0:
-				valid = True
-				ssid = layer.info
-				for ch in ssid:
-					try:
-						ch.decode('ascii')
-						if ch < ' ' or ch > '~':
-							valid = False
-					except UnicodeDecodeError:
-						valid = False
-						break
-				if len(ssid) >= 0 and valid and bssid != None and bssid != "ff:ff:ff:ff:ff:ff" and bssid not in unique_ap:
-					if len(ssid) == 0: 
-						if bssid not in hidden_ssid:
-							hidden_ssid.add(bssid)
-							ssid = "<Hidden>"
-					#	else:
-					#		continue
-					while Dot11Elt in layer:
-						if layer.ID == 3 and len(layer.info) == 1:
-							channel = int( ord(layer.info))
-						if layer.ID == 48:
-							crypto.add("WAP2")
-						if layer.ID == 221 and layer.info.startswith('\x00P\xf2\x01\x01\x00'):
-							crypto.add("WPA")
-						layer = layer.payload
-					if not crypto:
-						if 'privacy' in capability:
-							crypto.add("WEP")
-						else:
-							crypto.add("OPEN")
-					probe = {"Packet No.": index, "SSID": ssid, "BSSID": bssid, 
-							"Capability":capability, "Channel": channel, "Encryption": ' / '.join(crypto)}
-					key = "%s_%s" % (ssid, bssid)
-					unique_ap[key] = probe
+			if layer.ID == 0 and layer.info == target_ssid:
+				#print "Find at packet: %s" % index
+				#print "Packet[%s]: " % index
+				GetInfo(pkt)
 		index += 1
 
-GetSSID(pkts)
+def GetInfo(pkt):
+	bssid = pkt[Dot11].addr3
+	if bssid != "ff:ff:ff:ff:ff:ff":
+		capability = pkt.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}"
+			"{Dot11ProbeResp:%Dot11ProbeResp.cap%}")
+		crypto = set()
+		channel = None
+		layer = pkt
+		while Dot11Elt in layer:
+			if layer.ID == 3 and len(layer.info) == 1:
+				channel = int( ord(layer.info))
+			if layer.ID == 48:
+				crypto.add("WPA2")
+			if layer.ID == 221 and layer.info.startswith('\x00P\xf2\x01\x01\x00'):
+				crypto.add("WPA")
+			layer = layer.payload
+		if not crypto:
+			if 'privacy' in capability:
+				crypto.add("WEP")
+			else:
+				crypto.add("OPEN")
+		#update
+		if bssid not in unique_bssid:
+			unique_bssid.add(bssid)
+		if channel != None and channel not in target_channel:
+			target_channel.add(channel)
+		if crypto not in crypto_scheme:
+			crypto_scheme.append(crypto)
+		#print crypto
 
-od = collections.OrderedDict(sorted(unique_ap.items()))
+def main(argv):
+	if len(sys.argv) == 1:
+		print "Python APsniff <ssid>"
+		sys.exit()
+	GetPackets(pkts)
+	has_eap = False
+	print ("Information for AP: '%s'" % target_ssid)
+	print ("BSSID: ")
+	for item in unique_bssid:
+		if item in eap_device:
+			has_eap = True
+		print("%s" % item)
+	print ("channel: ")
+	for item in target_channel:
+		print("%s" % item)
+	print ("Encryption: ")
+	for item in crypto_scheme:		        
+		print("%s" % '/'.join(item))
+	print ("EAP: ")
+	if has_eap == True:
+		print("Enabled")
+	else:
+		print("Not proved")
 
-with open('output.txt', 'w') as out:
-	out.write(",".join(["Packet No.", "SSID", "BSSID(MAC)", "Capability", "Channel", "Encryption"]) + "\n")
-	for key in od:
-	        out.write(",".join(['"%s"' % x for x in [od[key]['Packet No.'], od[key]['SSID'], od[key]['BSSID'], od[key]['Capability'],od[key]['Channel'], od[key]['Encryption']]]) + "\n")
-	out.write("Hidden SSID: \n")
-	for item in hidden_ssid:
-		out.write("%s\n" % item)
-	out.write("EAPoL Enabled: \n")
-	for item in eapol:
-		out.write("%s\n" % item)
 
-
-
-
-
+if __name__ == "__main__":
+	main(sys.argv)
