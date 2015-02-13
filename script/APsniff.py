@@ -1,14 +1,22 @@
 from scapy.all import *
 import sys
+import subprocess
+import time
+from glob import glob
 
-pkts = rdpcap("../pkt/test3.cap")
-target_ssid = str(sys.argv[1]) #"xfinitywifi"
 unique_bssid = set()
 target_channel = set()
 eap_device = set()
 crypto_scheme = []
 
-def GetPackets(pkts):
+def call():
+	p = subprocess.Popen("airport "+"en0 "+"sniff", shell = True)
+	time.sleep(10)
+	subprocess.Popen("kill -HUP %s" % p.pid, shell = True)
+	pcapfile = glob("/tmp/*.cap")
+	subprocess.Popen("mv " + pcapfile[0] + " ../pkt/tmp.cap", shell = True)
+
+def GetPackets(pkts, target_ssid):
 	index = 0
 	for pkt in pkts:
 		if pkt.haslayer(EAPOL) or pkt.haslayer(EAP):
@@ -55,7 +63,13 @@ def main(argv):
 	if len(sys.argv) == 1:
 		print "Python APsniff <ssid>"
 		sys.exit()
-	GetPackets(pkts)
+	
+	target_ssid = str(sys.argv[1])
+	
+	call()
+ 	time.sleep(1)	
+	pkts = rdpcap("../pkt/tmp.cap")
+	GetPackets(pkts, target_ssid)
 	has_eap = False
 	print ("Information for AP: '%s'" % target_ssid)
 	print ("BSSID: ")

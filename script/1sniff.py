@@ -4,7 +4,6 @@ import collections
 pkts = rdpcap("../pkt/test3.cap")
 
 unique_ap = {}
-f = open('ssid', 'w')
 hidden_ssid = set()
 eapol = set()
 
@@ -47,7 +46,7 @@ def GetSSID(pkts):
 						if layer.ID == 3 and len(layer.info) == 1:
 							channel = int( ord(layer.info))
 						if layer.ID == 48:
-							crypto.add("WAP2")
+							crypto.add("WPA2")
 						if layer.ID == 221 and layer.info.startswith('\x00P\xf2\x01\x01\x00'):
 							crypto.add("WPA")
 						layer = layer.payload
