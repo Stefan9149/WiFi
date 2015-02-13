@@ -1,4 +1,30 @@
 Packet No.,SSID,BSSID(MAC),Capability,Channel,Encryption
+"4","<Hidden>","00:26:f3:74:ab:89","short-slot+res11+ESS+privacy","3","WAP2"
+"5","<Hidden>","00:26:f3:74:ab:8a","short-slot+res11+ESS+privacy","3","WAP2 / WPA"
+"20","<Hidden>","00:26:f3:74:ab:8b","short-slot+res11+ESS+privacy","3","WAP2 / WPA"
+"963","<Hidden>","02:1d:d1:89:48:c0","short-slot+res11+ESS+privacy","134","WEP"
+"123","<Hidden>","02:1d:d4:24:89:80","short-slot+ESS+privacy","6","WAP2"
+"22","<Hidden>","0e:18:0a:32:3b:ac","short-slot+res12+ESS+privacy+short-preamble","2","WEP"
+"10","<Hidden>","22:73:55:09:42:a0","short-slot+ESS+privacy","1","WAP2"
+"571","<Hidden>","37:89:09:11:9c:03","res11+res12+IBSS+short-preamble","None","OPEN"
+"8","<Hidden>","3b:14:0a:32:9b:12","short-slot+res12+ESS+privacy+short-preamble","None","WAP2"
+"80","<Hidden>","42:70:09:38:0f:f0","short-slot+ESS+privacy","6","WAP2"
+"3067","<Hidden>","4c:74:83:f3:85:24","short-slot+res11+ESS+privacy","3","WAP2 / WPA"
+"77","<Hidden>","92:1a:ca:2e:4a:d0","short-slot+ESS+privacy","6","WAP2"
+"1","<Hidden>","92:1a:ca:45:6a:60","short-slot+ESS+privacy","2","WAP2"
+"424","<Hidden>","92:1a:ca:45:6b:d0","short-slot+ESS+privacy","6","WAP2"
+"126","<Hidden>","92:87:7c:8c:e1:c0","short-slot+ESS+privacy","6","WAP2"
+"3350","<Hidden>","92:87:7c:c0:3e:c0","short-slot+ESS+privacy","6","WEP"
+"495","<Hidden>","92:d6:cc:45:6a:60","short-slot+ESS+privacy","None","WEP"
+"299","<Hidden>","a3:00:eb:67:17:c8","short-slot+ESS+privacy","6","WAP2"
+"329","<Hidden>","a4:97:e3:50:0f:f0","short-slot+ESS+privacy","6","WAP2"
+"1799","<Hidden>","ba:5e:03:80:d9:00","","None","OPEN"
+"3259","<Hidden>","ca:13:91:48:14:44","","5","OPEN"
+"2878","<Hidden>","cf:ff:ff:ff:ff:ff","","None","OPEN"
+"3120","<Hidden>","e2:65:03:00:00:00","","None","OPEN"
+"121","<Hidden>","e2:89:2c:4e:5a:f0","short-slot+res11+ESS+privacy","6","WAP2"
+"3596","<Hidden>","ea:6a:25:b2:14:4d","short-slot+ESS+privacy","6","WAP2"
+"110","<Hidden>","f2:ed:a5:62:2b:70","short-slot+ESS+privacy","6","WAP2"
 "3531","ASUS_WOWO1","38:2c:4a:e2:b5:08","short-slot+res12+ESS+privacy","6","WAP2"
 "3294","ATT000","3c:36:e4:2e:d9:00","short-slot+ESS+privacy","6","WAP2 / WPA"
 "3742","ATT056","cc:65:ad:f0:1a:c0","short-slot+ESS+privacy","4","WAP2 / WPA"
@@ -35,6 +61,20 @@ Packet No.,SSID,BSSID(MAC),Capability,Channel,Encryption
 "3565","Shibboleth","98:fc:11:e1:7e:8b","short-slot+ESS+privacy+short-preamble","6","WAP2"
 "2424","Staff","6c:aa:b3:60:6e:e8","short-slot+ESS+privacy+short-preamble","6","WEP"
 "50","YU_STUDENT","06:18:0a:32:3b:ac","short-slot+res12+ESS+privacy+short-preamble","2","WEP"
+"3746","","00:26:f3:74:ab:89","short-slot+res11+ESS+privacy","3","WAP2"
+"3670","","00:26:f3:74:ab:8a","short-slot+res11+ESS+privacy","3","WAP2 / WPA"
+"3610","","00:26:f3:74:ab:8b","short-slot+res11+ESS+privacy","3","WAP2 / WPA"
+"3491","","02:1d:d1:89:48:c0","short-slot+res11+ESS+privacy","6","WEP"
+"3757","","02:1d:d4:24:89:80","short-slot+ESS+privacy","6","WAP2"
+"69","","0e:18:0a:32:3b:ac","short-slot+res12+ESS+privacy+short-preamble","2","WAP2 / WPA"
+"70","","22:73:55:09:42:a0","short-slot+ESS+privacy","1","WAP2"
+"3755","","42:70:09:38:0f:f0","short-slot+ESS+privacy","6","WAP2"
+"3743","","92:1a:ca:2e:4a:d0","short-slot+ESS+privacy","6","WAP2"
+"3696","","92:1a:ca:45:6a:60","short-slot+ESS+privacy","2","WAP2"
+"3591","","92:1a:ca:45:6b:d0","short-slot+ESS+privacy","6","WAP2"
+"3586","","92:87:7c:8c:e1:c0","short-slot+ESS+privacy","6","WAP2"
+"3753","","e2:89:2c:4e:5a:f0","short-slot+res11+ESS+privacy","6","WAP2"
+"3634","","f2:ed:a5:62:2b:70","short-slot+ESS+privacy","6","WAP2"
 "3423","belkin.886.guests","b4:75:0e:23:08:89","short-slot+ESS","5","OPEN"
 "3735","bongiorno23","88:1f:a1:37:4f:9a","res8+short-slot+res12+ESS+privacy","6","WAP2"
 "3754","guolipanghu","90:1a:ca:45:6a:60","short-slot+ESS+privacy","2","WAP2 / WPA"
@@ -54,5 +94,31 @@ Packet No.,SSID,BSSID(MAC),Capability,Channel,Encryption
 "3582","xfinitywifi","e6:89:2c:4e:5a:f0","short-slot+res11+ESS","6","OPEN"
 "3694","xfinitywifi","f6:ed:a5:62:2b:70","short-slot+ESS","6","OPEN"
 Hidden SSID: 
+92:1a:ca:45:6a:60
+4c:74:83:f3:85:24
+22:73:55:09:42:a0
+92:d6:cc:45:6a:60
+42:70:09:38:0f:f0
+00:26:f3:74:ab:8b
+00:26:f3:74:ab:8a
+f2:ed:a5:62:2b:70
+02:1d:d1:89:48:c0
+92:1a:ca:2e:4a:d0
+92:87:7c:c0:3e:c0
+92:1a:ca:45:6b:d0
+37:89:09:11:9c:03
+02:1d:d4:24:89:80
+0e:18:0a:32:3b:ac
+ea:6a:25:b2:14:4d
+cf:ff:ff:ff:ff:ff
+3b:14:0a:32:9b:12
+ba:5e:03:80:d9:00
+e2:89:2c:4e:5a:f0
+e2:65:03:00:00:00
+a4:97:e3:50:0f:f0
+ca:13:91:48:14:44
+00:26:f3:74:ab:89
+a3:00:eb:67:17:c8
+92:87:7c:8c:e1:c0
 EAPoL Enabled: 
 6c:e8:73:43:c4:a6

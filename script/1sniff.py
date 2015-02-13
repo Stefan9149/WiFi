@@ -36,11 +36,11 @@ def GetSSID(pkts):
 					except UnicodeDecodeError:
 						valid = False
 						break
-				if len(ssid) > 0 and valid and bssid != None and bssid != "ff:ff:ff:ff:ff:ff" and bssid not in unique_ap:
-					#if len(ssid) == 0: 
-					#	if bssid not in hidden_ssid:
-					#		hidden_ssid.add(bssid)
-					#		ssid = "<Hidden>"
+				if len(ssid) >= 0 and valid and bssid != None and bssid != "ff:ff:ff:ff:ff:ff" and bssid not in unique_ap:
+					if len(ssid) == 0: 
+						if bssid not in hidden_ssid:
+							hidden_ssid.add(bssid)
+							ssid = "<Hidden>"
 					#	else:
 					#		continue
 					while Dot11Elt in layer:
